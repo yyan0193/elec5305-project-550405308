@@ -1,0 +1,13 @@
+gdown>=5.2
+librosa>=0.11
+matplotlib>=3.9
+numpy>=2.1
+pandas>=2.2
+pytest>=8.0
+PyYAML>=6.0
+scikit-learn>=1.6
+seaborn>=0.13
+soundfile>=0.13
+torch>=2.2
+transformers>=4.40
+tqdm>=4.66

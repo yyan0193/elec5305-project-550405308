@@ -1,0 +1,15 @@
+{
+  "published_reference_accuracy": 0.9415,
+  "segment_accuracy": 0.9415204678362573,
+  "segment_macro_f1": 0.9378814928774241,
+  "recording_accuracy": 1.0,
+  "recording_macro_f1": 1.0,
+  "train_frames": 176472,
+  "train_segments": 817,
+  "test_segments": 171,
+  "training_seconds": 0.01929255599998214,
+  "inference_seconds": 20.942882918000123,
+  "sample_rate": 22050,
+  "n_mfcc": 20,
+  "n_neighbors": 15
+}

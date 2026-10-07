@@ -1,0 +1,3 @@
+representation,feature_dimension,segments,device,extraction_seconds,seconds_per_five_second_segment,time_relative_to_classical
+Classical,64,988,CPU,44.15830507299995,0.0446946407621457,1.0
+MERT-v1-95M,768,988,cpu,353.624856184,0.3579198949230769,8.008116606817401

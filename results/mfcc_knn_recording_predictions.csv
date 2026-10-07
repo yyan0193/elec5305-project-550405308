@@ -1,0 +1,12 @@
+recording_id,instrument_id,instrument,prediction
+dizi_r5,4,Dizi,4
+erhu_r5,1,Erhu,1
+guzheng_r5,9,Guzheng,9
+liuqin_r5,8,Liuqin,8
+pipa_r5,2,Pipa,2
+sanxian_r5,3,Sanxian,3
+sheng_r5,11,Sheng,11
+suona_r5,5,Suona,5
+yangqin_r5,10,Yangqin,10
+zhongruan_r5,7,Zhongruan,7
+zhuiqin_r5,6,Zhuiqin,6

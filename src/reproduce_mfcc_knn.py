@@ -1,0 +1,16 @@
+"""Reproduce the published ChMusic frame-level MFCC-KNN benchmark."""
+import argparse,json,time
+from collections import Counter
+import librosa,matplotlib.pyplot as plt,numpy as np,pandas as pd,seaborn as sns
+from sklearn.metrics import accuracy_score,confusion_matrix,f1_score
+from sklearn.neighbors import KNeighborsClassifier
+from tqdm import tqdm
+from src.project_utils import INSTRUMENTS,ensure_parent,load_config,load_manifest,read_segment
+def frames(y,sr,n): return librosa.feature.mfcc(y=y,sr=sr,n_mfcc=n).T.astype(np.float32)
+def main():
+    p=argparse.ArgumentParser(); p.add_argument("--config",default="config/experiment.yaml"); c=load_config(p.parse_args().config); man=load_manifest(c["data"]["manifest_path"]); b=c["baseline"]; sr=int(b["sample_rate"]); n=int(b["n_mfcc"]); train=man[man.recording_number.isin(b["train_recordings"] )]; test=man[man.recording_number.isin(b["test_recordings"] )]; xs=[]; ys=[]
+    for _,row in tqdm(train.iterrows(),total=len(train),desc="MFCC-KNN train features"): x=frames(read_segment(row,sr),sr,n); xs.append(x); ys.append(np.full(len(x),int(row.instrument_id)))
+    x=np.vstack(xs); y=np.concatenate(ys); model=KNeighborsClassifier(n_neighbors=int(b["n_neighbors"]),n_jobs=-1); t=time.perf_counter(); model.fit(x,y); tr=time.perf_counter()-t; pred=[]; t=time.perf_counter()
+    for _,row in tqdm(test.iterrows(),total=len(test),desc="MFCC-KNN test segments"): guess=Counter(model.predict(frames(read_segment(row,sr),sr,n))).most_common(1)[0][0]; pred.append(dict(segment_id=row.segment_id,recording_id=row.recording_id,instrument_id=int(row.instrument_id),instrument=row.instrument,prediction=int(guess)))
+    inf=time.perf_counter()-t; seg=pd.DataFrame(pred); rec=seg.groupby(["recording_id","instrument_id","instrument"])["prediction"].agg(lambda v:Counter(v).most_common(1)[0][0]).reset_index(); labels=sorted(INSTRUMENTS); metrics=dict(published_reference_accuracy=.9415,segment_accuracy=accuracy_score(seg.instrument_id,seg.prediction),segment_macro_f1=f1_score(seg.instrument_id,seg.prediction,average="macro",labels=labels),recording_accuracy=accuracy_score(rec.instrument_id,rec.prediction),recording_macro_f1=f1_score(rec.instrument_id,rec.prediction,average="macro",labels=labels),train_frames=len(x),train_segments=len(train),test_segments=len(test),training_seconds=tr,inference_seconds=inf,sample_rate=sr,n_mfcc=n,n_neighbors=int(b["n_neighbors"])); json.dump(metrics,ensure_parent("results/mfcc_knn_metrics.json").open("w"),indent=2); seg.to_csv(ensure_parent("results/mfcc_knn_segment_predictions.csv"),index=False); rec.to_csv(ensure_parent("results/mfcc_knn_recording_predictions.csv"),index=False); matrix=confusion_matrix(rec.instrument_id,rec.prediction,labels=labels); fig,ax=plt.subplots(figsize=(9,7.5)); sns.heatmap(matrix,annot=True,fmt="d",cmap="Greens",xticklabels=[INSTRUMENTS[i] for i in labels],yticklabels=[INSTRUMENTS[i] for i in labels],ax=ax); ax.set(xlabel="Predicted instrument",ylabel="True instrument",title="Published-split MFCC-KNN recording-level confusion matrix"); fig.tight_layout(); fig.savefig(ensure_parent("figures/mfcc_knn_recording_confusion.png"),dpi=220); plt.close(fig); print(json.dumps(metrics,indent=2))
+if __name__=="__main__": main()

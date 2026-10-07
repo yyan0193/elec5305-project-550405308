@@ -1,0 +1,23 @@
+{
+  "Classical": {
+    "dimension": 64,
+    "extraction_seconds": 44.15830507299995,
+    "representation": "classical_timbral",
+    "sample_rate": 24000,
+    "seconds_per_segment": 0.0446946407621457,
+    "segments": 988
+  },
+  "MERT-v1-95M": {
+    "device": "cpu",
+    "dimension": 768,
+    "extraction_seconds": 353.624856184,
+    "layer": -1,
+    "model_name": "m-a-p/MERT-v1-95M",
+    "pooling": "temporal_mean",
+    "representation": "MERT-v1-95M",
+    "revision": "main",
+    "sample_rate": 24000,
+    "seconds_per_segment": 0.3579198949230769,
+    "segments": 988
+  }
+}

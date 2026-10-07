@@ -1,0 +1,34 @@
+project:
+  random_seed: 550405308
+data:
+  audio_dir: data/raw/ChMusic/Musics
+  manifest_path: metadata/data_manifest.csv
+  recording_audit_path: metadata/recording_audit.csv
+  segment_seconds: 5.0
+  analysis_sample_rate: 24000
+baseline:
+  sample_rate: 22050
+  n_mfcc: 20
+  n_neighbors: 15
+  train_recordings: [1, 2, 3, 4]
+  test_recordings: [5]
+classical:
+  n_mfcc: 20
+  n_fft: 2048
+  hop_length: 512
+  roll_percent: 0.85
+  n_contrast_bands: 6
+  output_path: data/cache/classical_features.npz
+mert:
+  model_name: m-a-p/MERT-v1-95M
+  revision: main
+  pooling: mean
+  layer: -1
+  batch_size: 1
+  output_path: data/cache/mert_embeddings.npz
+evaluation:
+  classifier: logistic_regression
+  max_iter: 5000
+  c: 1.0
+  label_budgets: [1, 2, 3, 4]
+  primary_metric: recording_macro_f1
