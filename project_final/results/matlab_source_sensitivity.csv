@@ -1,0 +1,3 @@
+representation,source_equal_segment_accuracy,majority_recording_accuracy,majority_recording_macro_f1
+matlab_classical,0.963208835727552,1,1
+frozen_mert,0.988222837768292,1,1

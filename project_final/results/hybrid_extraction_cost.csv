@@ -1,0 +1,3 @@
+representation,dimension,extraction_seconds,seconds_per_segment
+matlab_classical,64,47.3754095,0.0479508193319838
+frozen_mert,768,655.974546100013,0.663941848279365

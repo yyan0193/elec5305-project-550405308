@@ -1,0 +1,4 @@
+case_type,segment_id,true_instrument,classical_prediction,mert_prediction,centroid_hz,bandwidth_hz,rolloff_hz
+MERT corrects classical,dizi_r1_s004,Dizi,10,4,2163.48221869937,1585.66408705211,3973.26501623377
+Classical corrects MERT,guzheng_r1_s011,Guzheng,9,8,1662.98765188826,1418.64503179298,2785.46063311688
+Both remain incorrect,liuqin_r2_s022,Liuqin,9,11,1079.10585082525,1041.23182039373,1792.81655844156
