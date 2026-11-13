@@ -1,3 +1,18 @@
+## Final Project Submission
+
+The final experiment uses a MATLAB-led hybrid implementation.
+MATLAB handles classical feature extraction, classifier training,
+evaluation and plotting. Python extracts frozen MERT features.
+
+- [Final code and running instructions](project_final/README.md)
+- [Final experiment results](project_final/results/MATLAB_RESULTS_SUMMARY.md)
+- [Project reports](report/)
+
+The sections below describe the earlier Stage 2 Python experiment.
+Final results and running instructions are provided in the links above.
+
+---
+
 # Label-Efficient Recognition of Traditional Chinese Instruments
 
 **Student:** Yuxuan Yang
